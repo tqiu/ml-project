@@ -1,8 +1,8 @@
 import sys
-from logger import logging
+from src.logger import logging
 
 
-def error_message_detail(error, error_detail: sys):
+def error_message_detail(error, error_detail=sys):
     _, _, exc_tb = error_detail.exc_info()
     file_name = exc_tb.tb_frame.f_code.co_filename
     line_num = exc_tb.tb_lineno
@@ -13,7 +13,7 @@ error_message [{str(error)}]"""
 
 
 class CustomException(Exception):
-    def __init__(self, error, error_detail: sys):
+    def __init__(self, error, error_detail=sys):
         super().__init__(error)
         self.error_message = error_message_detail(error, error_detail)
 
@@ -26,4 +26,4 @@ if __name__ == "__main__":
         a = 1/0
     except Exception as e:
         logging.info("Test our custom exception")
-        raise CustomException(e, sys)
+        raise CustomException(e)
